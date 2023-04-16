@@ -507,6 +507,22 @@ def m4diag(li,symbols="<= v", unaryRel=""):
     st+=" &nbsp; "
   display_html(st,raw=True)
 
+def intersection(X):
+  S = frozenset()
+  for x in X: S &= x
+  return S
+
+def union(X):
+  S = frozenset()
+  for x in X: S |= x
+  return S
+
+def powerset(X):
+  PX = [()]
+  for i in range(len(X)):
+    PX += itertools.combinations(X, i+1)
+  return frozenset(frozenset(x) for x in PX)
+
 def eqrel2partition(co):
     classes = {}
     for x in co:

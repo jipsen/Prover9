@@ -552,7 +552,6 @@ def poset2model(A):
 def show(K,ops=[]): # show a list of Mace4 models using graphviz or show a set of subsets or partitions
   if type(K)==Model: K=[K]
   if type(K)==list and len(K)>0 and type(K[0])==Model:
-    print(ops)
     if ops==[]:
       if "<=" in K[0].relations.keys(): ops.append("<=d")
       if "^" in K[0].operations.keys(): ops.append("^d")
@@ -560,7 +559,6 @@ def show(K,ops=[]): # show a list of Mace4 models using graphviz or show a set o
       if "+" in K[0].operations.keys(): ops.append("+")
       if "*" in K[0].operations.keys(): ops.append("*d")
     else: ops=[x.strip() for x in ops]
-    print(ops)
     st=" ".join(ops)
     m4diag(K,st)
   elif type(K)==frozenset: m4diag([poset2model(K)])

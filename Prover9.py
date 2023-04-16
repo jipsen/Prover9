@@ -507,6 +507,17 @@ def m4diag(li,symbols="<= v", unaryRel=""):
     st+=" &nbsp; "
   display_html(st,raw=True)
 
+def eqrel2partition(co):
+    classes = {}
+    for x in co:
+        if x[0] not in classes.keys(): classes[x[0]] = set([x[0]])
+        classes[x[0]].add(x[1])
+    return frozenset(frozenset(classes[y]) for y in classes.keys())
+
+def rel2pairs(rel):
+  B = range(len(rel))
+  return frozenset((i,j) for j in B for i in B if rel[i][j])
+
 def compatiblepreorders(A, precon=True, sym=False):
   signum={
   "-":"C(x,y)->C(-y,-x)",

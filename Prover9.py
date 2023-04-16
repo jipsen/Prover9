@@ -101,7 +101,7 @@ def compatiblepreorders(A, precon=True, sym=False):
   for o in A.operations.keys():
     if o in signum.keys(): compat += [signum[o]]
     elif type(A.operations[o])!=int: raise SyntaxError("Operation not handled")
-  c=prover9(A.diagram("")+compat,[],100000,0,m,noniso=False)#, options=p9options)
+  c=prover9(A.diagram("")+compat,[],100000,0,m,noniso=False)
   return frozenset([rel2pairs(x.relations["C"]) for x in c])
 
 def precongruences(A):
@@ -148,7 +148,7 @@ def check(structure,FOformula_list,info=False):
       if "*" in st: lt = ["x<=y <-> x*y=x"]
       if "v" in st: lt = ["x<=y <-> x v y=y"]
       if "^" in st: lt = ["x<=y <-> x^y=x"]
-    li = prover9(structure.diagram("")+lt,[st],1000,0,structure.cardinality,one=True, options=p9options)
+    li = prover9(structure.diagram("")+lt,[st],1000,0,structure.cardinality,one=True)
     if li!=[]:
       if info: return li+[st+" fails"]
       return False

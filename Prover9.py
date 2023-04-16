@@ -559,7 +559,7 @@ def show(K,ops=[]): # show a list of Mace4 models using graphviz or show a set o
       if "v" in K[0].operations.keys(): ops.append("v")
       if "+" in K[0].operations.keys(): ops.append("+")
       if "*" in K[0].operations.keys(): ops.append("*d")
-    else: ops=[la2p9[x.strip()] for x in ops]
+    else: ops=[x.strip() for x in ops]
     print(ops)
     st=" ".join(ops)
     m4diag(K,st)

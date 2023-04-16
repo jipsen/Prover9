@@ -533,7 +533,7 @@ def precongruences(A):
   if type(A)==Model: return compatiblepreorders(A)
   return [compatiblepreorders(x) for x in A]
 
-def congruences(A):
+def Con(A):
   if type(A)==Model: return frozenset(eqrel2partition(x) for x in compatiblepreorders(A,False,True))
   return [frozenset(eqrel2partition(x) for x in compatiblepreorders(y,False,True)) for y in A]
 

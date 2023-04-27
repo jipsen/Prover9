@@ -153,3 +153,14 @@ def check(structure,FOformula_list,info=False):
       if info: return li+[st+" fails"]
       return False
   return True
+
+def p9(assume_list, goal_list, mace_seconds=2, prover_seconds=60, cardinality=None, options=[], params='', info=False):
+    global prover9
+    if type(cardinality) == int or cardinality == None:
+        return prover9(assume_list, goal_list, mace_seconds, prover_seconds, cardinality, params=params, info=info, options=options)
+    else:
+        algs = [[], [1]]+[[] for i in range(2, cardinality[0]+1)]
+        for i in range(2, cardinality[0]+1):
+            algs[i] = prover9(assume_list, goal_list, mace_seconds, prover_seconds, i, params=params, info=info, options=options)
+        print("Fine spectrum: ", [len(x) for x in algs[1:]])
+        return algs

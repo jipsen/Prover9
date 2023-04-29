@@ -175,6 +175,8 @@ def xmlopstr(m):  # convert 2-dim list to a compact string for display
     s = "\n".join(rows)
     return s+"\n"
 
+uaop={"*":"star","+":"plus","-":"minus","~":"tilde","^":"meet","'":"prime","/":"over","\\":"under"}
+
 def uacalc_format(self, name):
     """
     display a model in UAcalc format (uacalc.org)
@@ -184,8 +186,7 @@ def uacalc_format(self, name):
          '</algName>\n    <cardinality>'+str(self.cardinality)+\
          '</cardinality>\n    <operations>\n'
     for x in self.operations:
-        st += '      <op>\n        <opSymbol>\n          <opName>'+\
-              x+'</opName>\n'
+        st += '      <op>\n        <opSymbol>\n          <opName>'+(uaop[x] if x in uaop else x)+'</opName>\n'
         oplst = type(self.operations[x]) == list
         if oplst and type(self.operations[x][0]) == list:
             st += '          <arity>2</arity>\n        </opSymbol>\n        <opTable>\n          <intArray>\n' + xmlopstr(self.operations[x])

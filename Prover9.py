@@ -164,3 +164,32 @@ def p9(assume_list, goal_list, mace_seconds=2, prover_seconds=60, cardinality=No
             algs[i] = prover9(assume_list, goal_list, mace_seconds, prover_seconds, i, params=params, info=info, options=options)
         print("Fine spectrum: ", [len(x) for x in algs[1:]])
         return algs
+
+def xmlopstr(m):  # convert 2-dim list to a compact string for display
+    nr = len(m)
+    nc = len(m[0])
+    s = [[str(y).replace(' ','') for y in x] for x in m]
+    width = [max([len(s[x][y]) for x in range(nr)]) for y in range(nc)]
+    s = [[" "*(width[y]-len(s[x][y]))+s[x][y] for y in range(nc)] for x in range(nr)]
+    rows = ["            <row r=\"["+str(i)+"]\">"+",".join(s[i])+"</row>" for i in range(len(s))]
+    s = "\n".join(rows)
+    return s+"\n"
+
+def uacalc_format(self, name):
+    """
+    display a model in UAcalc format (uacalc.org)
+    """
+    st = '<?xml version="1.0"?>\n<algebra>\n  <basicAlgebra>\n    <algName>'+\
+          name+(str(self.index) if self.index!=None else '')+\
+         '</algName>\n    <cardinality>'+str(self.cardinality)+\
+         '</cardinality>\n    <operations>\n'
+    for x in self.operations:
+        st += '      <op>\n        <opSymbol>\n          <opName>'+\
+              x+'</opName>\n'
+        oplst = type(self.operations[x]) == list
+        if oplst and type(self.operations[x][0]) == list:
+            st += '          <arity>2</arity>\n        </opSymbol>\n        <opTable>\n          <intArray>\n' + xmlopstr(self.operations[x])
+        else:
+            st += '          <arity>'+('1' if oplst else '0')+'</arity>\n        </opSymbol>\n        <opTable>\n          <intArray>\n            <row>' + (str(self.operations[x])[1:-1] if oplst else str(self.operations[x]))+'</row>\n'
+        st += '          </intArray>\n        </opTable>\n      </op>\n'
+    return st+'    </operations>\n  </basicAlgebra>\n</algebra>\n'

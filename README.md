@@ -2,7 +2,7 @@
 
 The file Prover9.py contains some additional code for the Python interface to Prover9/Mace4 provided by the `provers` package https://pypi.org/project/provers/ on PyPI.
 
-The provers package works well on https://colab.research.google.com, so to use it, go to the colab site, login with a Google account, copy the following commands into a new Colab notebook cell and run them (takes about 30 seconds to compile Prover9):
+The provers package works well on https://colab.research.google.com, so to use it, go to the Colab site, login with a Google account, copy the following commands into a new Colab notebook cell and run them (takes about 30 seconds to compile Prover9):
 
 ```
 !pip install provers
@@ -30,7 +30,7 @@ To prove some result, try the following command:
 p9(Mon+["x'*x=1"],["x*x'=1"],0,100)  # a monoid with left inverses is a group; search 0 sec for counter_ex, 100 sec for proof
 ```
 
-To export some algebra to the Universal Algebra Calculator (UACalc) format, use the following:
+To export an algebra to the Universal Algebra Calculator (UACalc) format, use the following:
 
 ```
 a=p9(Monoids,[],100,0,[5])   #search up to 100 seconds for all monoids of cardinality <= 5 (up to isomorphism)
